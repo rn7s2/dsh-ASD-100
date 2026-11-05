@@ -11,6 +11,15 @@ sentence, active voice, simple tenses, the condition before the command, one wor
 with one meaning, no semicolons, no em dashes, no contractions. A reply answers
 first and uses prose only.
 
+## Install
+
+```sh
+dsh plugin --profile desktop add /absolute/path/to/dsh-ASD-100
+```
+
+The command adds the package to the profile manifest and appends it to
+`dsh.profile.bundles`. Restart DSH afterwards.
+
 ## Commands
 
 - `/asd100 on` turns the mode on.
@@ -18,6 +27,12 @@ first and uses prose only.
 - `/asd100` reports the current state.
 
 `/asd-100` is accepted as an alias.
+
+The command is registered with the host command registry, so it appears in the
+`/` menu and never reaches the model. A composition with no slash-command adapter,
+such as the headless runner, still accepts the command as a whole message: a
+pre-step listener consumes the line, flips the mode, and replaces it with the status
+line the model confirms.
 
 ## State
 
@@ -46,6 +61,17 @@ Two optional fields, set in the bundle patch that loads the plugin:
         stateFile: /path/to/.active         # default: ~/.dsh/dsh-asd-100/.active
 ```
 
+## Compatibility
+
+Built against DSH `0.2.1-rc.5` on Node 24. `package.json` declares both floors, and
+DSH refuses to load a plugin whose declared `engines.dsh` range the runtime does not
+satisfy.
+
+The plugin needs one host service: `systemPrompt`. The command registry is optional.
+Both paths use the current Cordis API: `ctx.systemPrompt.section({ name, order,
+interpolate, text })`, `ctx.inject([...], (child) => …)`, and
+`ctx.commands.register({ definitionId, name, description, input, handler })`.
+
 ## Development
 
 ```sh
@@ -56,11 +82,11 @@ The plugin imports node builtins only. It has no dependencies.
 
 ## Files
 
-- `lib/index.js` — the plugin: the prompt section, the command handler, the flag file.
+- `lib/index.js` — the plugin: the prompt section, the command, the flag file.
 - `cordis.patch.yml` — the bundle patch that loads it.
 - `skills/simple-english/` — the rule text and its references, spliced from the
   `simple-english` agent skill (MIT), version 2.1.1, standard ASD-STE100 Issue 9.
-- `test/ste.test.mjs` — seven tests.
+- `test/ste.test.mjs` — eleven tests.
 - `awesome-dsh-plugin-entry.yml` — the list entry for the awesome-dsh-plugin PR.
 
 ## License

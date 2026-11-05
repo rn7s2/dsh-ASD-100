@@ -1,4 +1,10 @@
-# Bundle patch layer: load this package's main entry as a plain Cordis plugin.
+# The dsh-asd-100 bundle patch: one Host row.
+#
+# Config (both optional):
+#   skillDir: directory holding SKILL.md; default ~/.agents/skills/simple-english,
+#             then the copy this package ships
+#   stateFile: flag file; default ~/.dsh/dsh-asd-100/.active
 - insert:
     - id: dsh-asd-100
       name: dsh-asd-100
+      config: {}
