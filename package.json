@@ -1,8 +1,8 @@
 {
   "name": "dsh-asd-100",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "ASD-STE100 Simplified Technical English output mode for DSH. /ste on makes every reply and every document follow the simplified-English rules.",
+  "description": "ASD-STE100 Simplified Technical English output mode for DSH. /asd100 on makes every reply and every document follow the simplified-English rules.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -21,7 +21,8 @@
     }
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24",
+    "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
   "license": "MIT"
 }
